@@ -38,10 +38,13 @@ int main(int argc, char* argv[]) {
     } else  usage("PROGNAME: unexpected argument\n");
   }
 
+  printf("\n\n");
   //open connection
-  cnsl_open(devname);
   printf(PROGNAME); printf(": connecting...\n\n");
+  cnsl_open(devname);
+  printf(PROGNAME); printf(": connected successfully\n\n");
 
   my_sem_script();
 
+  return 0;
 }
