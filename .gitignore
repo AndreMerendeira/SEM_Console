@@ -52,4 +52,9 @@ Mkfile.old
 dkms.conf
 
 # Console
-console
+console/console
+
+#ACME
+ACME/Acme
+ACME/injectionRange.txt
+ACME/*.ebd
