@@ -7,23 +7,37 @@
 */
 void my_sem_script (){
 
+  FILE * fp;
+  char * line = NULL;
+  size_t len, i = 0;
+#ifdef ULTRASCALE_P
+  char buffer [11]="";
+#else
+  char buffer [10]="";
+#endif
+
   //Catch initilization response
   wait_resp();
 
   reset_cmd();
 
-	status_cmd();
+  status_cmd();
 
-  //query the frame
-  query_cmd(0,36,1,21);
-  //inject error at slr 0, frame 36, word 1, bit 21
-  err_injection_cmd(0, 36,1,21);
-	//check if bit was flipped
-	query_cmd(0,36,1,21);
+  fp = fopen("injectionRange.txt", "r");
+  if (fp == NULL) {
+    printf("Failed to open file\n");
+    exit(EXIT_FAILURE);
+  }
 
-	observation_cmd();
-	wait_resp(); //Wait for response to error detection
-
-	printf("\n\n");
-
+  while(getline(&line, &len, fp) != -1) {
+    for (i=0; i<len-1; i++)
+      buffer[i]=line[i];
+    err_injection_cmd_in_addr(buffer);
+  }
+  
+  printf("Finished error injection\n\n");
+  
+  fclose(fp);
+  if (line)
+  free(line);
 }
