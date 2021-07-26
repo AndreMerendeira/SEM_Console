@@ -38,6 +38,7 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 	stringstream WD_BT_str;						// String Stream for Word+Bit manipulation
 	int lineMin, lineMax, wordMin, wordMax;		// EBD File Min-Max Ranges
 	int addresses = 0;							// Number of Injection Addresses Created
+  int wf = 0;							// Number of Words per Frame
 
 	// Open Input and Output Files
 	EBDfile.open(name, ifstream::in);
@@ -50,12 +51,21 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 			// UltraScale
 			for (int j = 0; j < DUMMY_ULTRASCALE; j++) {
 				getline(EBDfile, fileLine);
+        wf = WF_ULTRASCALE;
+			}
+		}
+    if (coordinates.at(0) == 2) {
+			// UltraScale+
+			for (int j = 0; j < DUMMY_ULTRASCALE_P; j++) {
+				getline(EBDfile, fileLine);
+        wf = WF_ULTRASCALE_P;
 			}
 		}
 		else {
 			// 7-Series
 			for (int j = 0; j < DUMMY_7SERIES; j++) {
 				getline(EBDfile, fileLine);
+        wf = WF_7SERIES;
 			}
 		}
 
@@ -71,8 +81,8 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 
 		// Go to First Frame Position and Read the Correct Amount of Words
 		EBDfile.seekg((BITS_IN_LINE + 2) * lineMin, ios_base::cur);
-		for (int k = lineMin; k <= lineMax; k = k + WF_ULTRASCALE) {
-			for (int m = 0; m < WF_ULTRASCALE; m++) {
+		for (int k = lineMin; k <= lineMax; k = k + wf) {
+			for (int m = 0; m < wf; m++) {
 				if ((m >= wordMin) && (m <= wordMax)) {
 					getline(EBDfile, fileLine);
 					EBDline = (bitset<BITS_IN_LINE>(fileLine));
@@ -81,16 +91,9 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 						for (int n = 0; n < BITS_IN_LINE; n++) {
 							// For each 1 (Essential Bit) in the EBD Line
 							if (EBDline[n]) {
-								// UltraScale
-								if (coordinates.at(0) == 1) {
-									// Linear Address
-									LA = bin2hex(bitset<BITS_IN_LINE>(stoi("000" + dec2bin(k / WF_ULTRASCALE), nullptr, 2)), 5);
-								}
-								// 7-Series
-								else {
-									// Linear Address
-									LA = bin2hex(bitset<BITS_IN_LINE>(stoi("000" + dec2bin(k / WF_7SERIES), nullptr, 2)), 5);
-								}
+								// Linear Address
+								LA = bin2hex(bitset<BITS_IN_LINE>(stoi("000" + dec2bin(k / wf), nullptr, 2)), 5);
+
 								// Word
 								WD_BT_str << setfill('0') << setw(7) << dec2bin(m);
 

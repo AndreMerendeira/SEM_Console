@@ -29,7 +29,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <algorithm> 
+#include <algorithm>
 
 //---------------------------------------------------------------------------------------
 // NAMESPACES
@@ -42,8 +42,10 @@ using namespace std;
 #define BITS_IN_LINE 32				// Number of Bits in an EBD Line
 #define WF_ULTRASCALE 123			// Words per Frame (UltraScale Family)
 #define WF_7SERIES 101				// Words per Frame (7-Series Family)
+#define WF_ULTRASCALE_P 93			// Words per Frame (UltraScale+ Family)
 #define DUMMY_ULTRASCALE 141		// UltraScale EBD Header + Dummy Lines (8 + 123 + 10)
 #define DUMMY_7SERIES 109			// 7-Series EBD Header + Dummy Lines (8 + 101)
+#define DUMMY_ULTRASCALE_P 126		// UltraScale+ EBD Header + Dummy Lines (8 + 93 + 25)
 
 #define KCU105_MIN_X 50				// KCU105 Minimum X Coordinate
 #define KCU105_MAX_X 357			// KCU105 Maximum X Coordinate
@@ -56,6 +58,18 @@ using namespace std;
 #define KCU105_OFFSET_X 50			// KCU105 Tiles Starting Column
 #define KCU105_FX 17				// KCU105 Frames per X Coordinate (Tile Column)
 #define KCU105_FY 5236				// KCU105 Frames per Horizontal Clock Regions
+
+
+#define ULTRA96_2_MIN_X 161				// Ultra96_2 Minimum X Coordinate
+#define ULTRA96_2_MAX_X 301		// Ultra96_2 Maximum X Coordinate
+#define ULTRA96_2_MIN_Y 1				// Ultra96_2 Minimum Y Coordinate
+#define ULTRA96_2_MAX_Y 185			// Ultra96_2 Maximum Y Coordinate
+#define ULTRA96_2_Y2 61				// Ultra96_2 Maximum Row of Clock Region Y2
+#define ULTRA96_2_Y1 123				// Ultra96_2 Maximum Row of Clock Region Y1
+#define ULTRA96_2_OFFSET_X 161			// Ultra96_2 Tiles Starting Column
+#define ULTRA96_2_FX 24		     // Ultra96_2 Frames per X Coordinate (Tile Column)
+#define ULTRA96_2_FY 3458				// Ultra96_2 Frames per Horizontal Clock Regions
+
 
 //---------------------------------------------------------------------------------------
 // FUNCTION PROTOTYPES

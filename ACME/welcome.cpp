@@ -41,7 +41,8 @@ vector<int> welcome()
 	cout << "/**" << " usage : EBD file must be in the .exe directory " << "**/" << endl;
 	cout << "/**" << "                                                " << "**/" << endl;
 	cout << "/**" << "   - Supported devices:                         " << "**/" << endl;
-	cout << "/**" << "      (1) KCU105 :    X [50,357] - Y [0,309]    " << "**/" << endl;
+	cout << "/**" << "      (1) KCU105 :       X [50,357] - Y [0,309] " << "**/" << endl;
+	cout << "/**" << "      (2) Ultra96-V2 :   X [161,301] - Y [1,185] " << "**/" << endl;
 	cout << "/**" << "                                                " << "**/" << endl;
 	cout << "/**" << "   - Design coordinates:                        " << "**/" << endl;
 	cout << "/**" << "       (X Lo,Y Lo)                              " << "**/" << endl;
@@ -77,6 +78,12 @@ vector<int> welcome()
 		MAX_X = KCU105_MAX_X;
 		MIN_Y = KCU105_MIN_Y;
 		MAX_Y = KCU105_MAX_Y;
+	}
+  else if (coordinates.at(0) == 2) {
+		MIN_X = Ultra96_2_MIN_X;
+		MAX_X = Ultra96_2_MAX_X;
+		MIN_Y = Ultra96_2_MIN_Y;
+		MAX_Y = Ultra96_2_MAX_Y;
 	}
 	/*else if (coordinates.at(0) == 2) {
 		MAX_X = B3_MAX_X;
@@ -171,6 +178,9 @@ vector<int> welcome()
 	cout << " Device  : ";
 	if (coordinates.at(0) == 1) {
 		cout << "KCU105" << endl;
+	}
+  if (coordinates.at(0) == 1) {
+		cout << "Ultra96-V2" << endl;
 	}
 	/*else if (coordinates.at(0) == 2) {
 		cout << "Basys3" << endl;
