@@ -275,8 +275,8 @@ vector<int> ebdFrames(vector<int> coordinates, vector<int>& words, int &clk_regi
 		//----------
 		// Y Lo and Y Hi belong to CLOCK REGION Y2
 		if ((coordinates.at(2) >= 0) && (coordinates.at(4) <= ULTRA96_2_Y2)) {
-			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 4) * WF_ULTRASCALE_P);							// First Frame
-			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
 			words.push_back((ULTRA96_2_Y2 - coordinates.at(4)) * 2);																				// First Word
 			if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
 			else { words.push_back((ULTRA96_2_Y2 - coordinates.at(2)) * 2 + 1); }																	// Last Word
@@ -302,10 +302,10 @@ vector<int> ebdFrames(vector<int> coordinates, vector<int>& words, int &clk_regi
 		}
 		// Y Lo belongs to CLOCK REGION Y2 and Y Hi belongs to CLOCK REGION Y1
 		else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ULTRA96_2_Y2)) && ((coordinates.at(4) > ULTRA96_2_Y2) && (coordinates.at(4) <= ULTRA96_2_Y1))) {
-			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 3) * WF_ULTRASCALE_P);							// First Frame
-			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
-			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 4) * WF_ULTRASCALE_P);							// First Frame
-			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
 			if (coordinates.at(4) == (ULTRA96_2_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
 			else { words.push_back((ULTRA96_2_Y1 - coordinates.at(4)) * 2); }																		// First Word
 			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
@@ -316,7 +316,7 @@ vector<int> ebdFrames(vector<int> coordinates, vector<int>& words, int &clk_regi
 		}
 		// Y Lo belongs to CLOCK REGION Y1 and Y Hi belongs to CLOCK REGION Y0
 		else if (((coordinates.at(2) > ULTRA96_2_Y2) && (coordinates.at(2) <= ULTRA96_2_Y1)) && ((coordinates.at(4) > ULTRA96_2_Y1) && (coordinates.at(4) <= ULTRA96_2_MAX_Y))) {
-			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 0) * WF_ULTRASCALE_P);							// First Frame
 			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
 			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 1) * WF_ULTRASCALE_P);							// First Frame
 			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
@@ -330,7 +330,7 @@ vector<int> ebdFrames(vector<int> coordinates, vector<int>& words, int &clk_regi
 		}
 		// Y Lo belongs to CLOCK REGION Y2 and Y Hi belongs to CLOCK REGION Y0
 		else if (((coordinates.at(2) > 0) && (coordinates.at(2) <= ULTRA96_2_Y2)) && ((coordinates.at(4) > ULTRA96_2_Y1) && (coordinates.at(4) <= ULTRA96_2_MAX_Y))) {
-			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 0) * WF_ULTRASCALE_P);							// First Frame
 			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
 			frameRanges.push_back(((coordinates.at(1) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + ULTRA96_2_FY * 1) * WF_ULTRASCALE_P);							// First Frame
 			frameRanges.push_back(((coordinates.at(3) - ULTRA96_2_OFFSET_X) * ULTRA96_2_FX + (ULTRA96_2_FX - 1) + ULTRA96_2_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
