@@ -53,6 +53,7 @@ dkms.conf
 
 # Console
 console/console
+console/injectionRange.txt
 
 #ACME
 ACME/Acme

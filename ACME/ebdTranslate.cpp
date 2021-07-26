@@ -91,24 +91,32 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 						for (int n = 0; n < BITS_IN_LINE; n++) {
 							// For each 1 (Essential Bit) in the EBD Line
 							if (EBDline[n]) {
-								// Linear Address
-								LA = bin2hex(bitset<BITS_IN_LINE>(stoi("000" + dec2bin(k / wf), nullptr, 2)), 5);
+		            // Linear Address
+							  if (coordinates.at(0) == 2) { 
+							    // UltraScale+
+			            LA = bin2hex(bitset<BITS_IN_LINE>(stoi("00" + dec2bin(k / wf), nullptr, 2)), 5);
+			          } else {
+								  LA = bin2hex(bitset<BITS_IN_LINE>(stoi("000" + dec2bin(k / wf), nullptr, 2)), 5);
+							  }
+							  // Word
+							  WD_BT_str << setfill('0') << setw(7) << dec2bin(m);
 
-								// Word
-								WD_BT_str << setfill('0') << setw(7) << dec2bin(m);
+							  // Bit
+							  WD_BT_str << setfill('0') << setw(5) << dec2bin(n);
 
-								// Bit
-								WD_BT_str << setfill('0') << setw(5) << dec2bin(n);
+							  // Combine Word and Bit into Hex
+							  WD_BT = bin2hex(bitset<BITS_IN_LINE>(stoi(WD_BT_str.str(), nullptr, 2)), 3);
 
-								// Combine Word and Bit into Hex
-								WD_BT = bin2hex(bitset<BITS_IN_LINE>(stoi(WD_BT_str.str(), nullptr, 2)), 3);
-
-								// Write Injection Address to File
-								addrfile << "C0" << LA << WD_BT << endl;
-
-								// Clear Stringstream and Increase Counter
-								WD_BT_str.str(string());
-								addresses++;
+							  // Write Injection Address to File
+                if (coordinates.at(0) == 2) {
+                  // UltraScale+
+								  addrfile << "C00" << LA << WD_BT << endl;
+			          } else {
+								  addrfile << "C0" << LA << WD_BT << endl;
+								}
+							  // Clear Stringstream and Increase Counter
+							  WD_BT_str.str(string());
+							  addresses++;
 							}
 						}
 						//cout << "line: " << EBDline << endl;

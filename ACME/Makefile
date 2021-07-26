@@ -12,6 +12,7 @@ $(TRGT): $(CSRCS) $(CHDRS)
 
 run: $(TRGT)
 	./$(TRGT)
+	cp injectionRange.txt ../console/injectionRange.txt
 
 clean:
 	@rm -f *# *~ $(TRGT)
