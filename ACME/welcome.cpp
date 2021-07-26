@@ -64,7 +64,7 @@ vector<int> welcome()
 	// Read Board Type
 	cout << "-> Please select device: ";
 	cin >> input_val;
-	while (((cin.fail()) || ((input_val != 1)))) {// && (input_val != 2) && (input_val != 3) && (input_val != 4) && (input_val != 5)))) {
+	while ((cin.fail()) || ((input_val != 1) && (input_val != 2))) { // && (input_val != 3) && (input_val != 4) && (input_val != 5)))) {
 		cout << "-> ERROR, please enter a valid number: ";
 		cin.clear();
 		cin.ignore(256, '\n');
@@ -80,10 +80,10 @@ vector<int> welcome()
 		MAX_Y = KCU105_MAX_Y;
 	}
   else if (coordinates.at(0) == 2) {
-		MIN_X = Ultra96_2_MIN_X;
-		MAX_X = Ultra96_2_MAX_X;
-		MIN_Y = Ultra96_2_MIN_Y;
-		MAX_Y = Ultra96_2_MAX_Y;
+		MIN_X = ULTRA96_2_MIN_X;
+		MAX_X = ULTRA96_2_MAX_X;
+		MIN_Y = ULTRA96_2_MIN_Y;
+		MAX_Y = ULTRA96_2_MAX_Y;
 	}
 	/*else if (coordinates.at(0) == 2) {
 		MAX_X = B3_MAX_X;
@@ -179,7 +179,7 @@ vector<int> welcome()
 	if (coordinates.at(0) == 1) {
 		cout << "KCU105" << endl;
 	}
-  if (coordinates.at(0) == 1) {
+  if (coordinates.at(0) == 2) {
 		cout << "Ultra96-V2" << endl;
 	}
 	/*else if (coordinates.at(0) == 2) {
