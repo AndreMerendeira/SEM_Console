@@ -147,11 +147,28 @@ void query_cmd (unsigned int slr, unsigned int lfa, unsigned int word, unsigned 
 	location |= lfa << 12;
 	location |= slr << 29;
 
+#ifdef ULTRASCALE_P
+  cnsl_printf("Q C00%08X\r", location); //Send query command
+#else
 	cnsl_printf("Q C0%08X\r", location); //Send query command
+#endif
 
 	wait_resp_w_word(word);
 }
 
+/*
+Injects an error (bit flip) in given address with 11 digits (hex)
+*/
+#ifdef ULTRASCALE_P
+void err_injection_cmd_in_addr (char addr [11]) {
+	idle_cmd();
+
+  //uart_printf("Injecting error at addr: %s\n", addr);
+	cnsl_printf("N %s\r", addr); //Send error injection command
+
+	wait_resp();
+}
+#else
 /*
 Injects an error (bit flip) in given address with 10 digits (hex)
 */
@@ -163,13 +180,18 @@ void err_injection_cmd_in_addr (char addr [10]) {
 
 	wait_resp();
 }
+#endif
 
 /*
 Injects an error (bit flip) in <bit>, of <word> in <lfa> (Linear Frame Address),
 of <slr> (Super Logic Region)
 */
 void err_injection_cmd (unsigned int slr, unsigned int lfa, unsigned int word, unsigned int bit) {
-	char cmd_buffer [11] = "";
+#ifdef ULTRASCALE_P
+  char cmd_buffer [12] = "";
+#else
+  char cmd_buffer [11] = "";
+#endif
 	unsigned int location = 0;
 
 	//uart_printf("Injecting error frame: %d\t word: %d\t bit: %d\n", lfa, word, bit);
@@ -179,8 +201,11 @@ void err_injection_cmd (unsigned int slr, unsigned int lfa, unsigned int word, u
 	location |= word << 5;
 	location |= lfa << 12;
 	location |= slr << 29;
-
+#ifdef ULTRASCALE_P
   sprintf(cmd_buffer,"C0%08X", location);
+#else
+  sprintf(cmd_buffer,"C00%08X", location);
+#endif
   err_injection_cmd_in_addr (cmd_buffer);
 
 }
