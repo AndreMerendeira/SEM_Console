@@ -202,9 +202,9 @@ void err_injection_cmd (unsigned int slr, unsigned int lfa, unsigned int word, u
 	location |= lfa << 12;
 	location |= slr << 29;
 #ifdef ULTRASCALE_P
-  sprintf(cmd_buffer,"C0%08X", location);
-#else
   sprintf(cmd_buffer,"C00%08X", location);
+#else
+  sprintf(cmd_buffer,"C0%08X", location);
 #endif
   err_injection_cmd_in_addr (cmd_buffer);
 
