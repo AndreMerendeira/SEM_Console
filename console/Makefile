@@ -1,9 +1,12 @@
 SHELL := /bin/bash
 
-SERIAL:=/dev/ttyUSB0
+SERIAL:=/dev/ttyUSB2
 
 CC:=gcc
 CFLAGS:=-g -Wall
+
+#Uncomment this line when using an UltraScale+ board
+CFLAGS += -DULTRASCALE_P
 
 INCLUDE+=-I. -I../SEM
 
@@ -15,7 +18,7 @@ run: console
 	$(CONSOLE_CMD)
 
 console: $(SRC)
-	$(CC) $(CFLAGS) $(INCLUDE) $(SRC) -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) $(SRC) -o $@ -lm
 
 clean:
 	@rm -f *# *~ console *.bin *.log

@@ -43,8 +43,31 @@ int main(int argc, char* argv[]) {
   printf(PROGNAME); printf(": connecting...\n\n");
   cnsl_open(devname);
   printf(PROGNAME); printf(": connected successfully\n\n");
+  
+  /* Unset stdin and stdout buffering */
+	setvbuf(stdin, NULL, _IONBF, 0);
+	setvbuf(stdout, NULL, _IONBF, 0);
 
+  char c; 
+  
+  while(1) {
+    c = cnsl_getchar(); //Wait for board
+    if (c=='\x02') break;
+    else putchar(c);
+  }
+
+  cnsl_putchar('\x06');
+  printf("Starting scrip\n");
+  
   my_sem_script();
-
+  
+  cnsl_putchar('\x06');
+  while (1) {
+    //get byte from target
+    c = cnsl_getchar();
+    if(c=='\x06') break;
+    else putchar(c);
+  }
+  
   return 0;
 }
