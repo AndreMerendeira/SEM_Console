@@ -4,10 +4,6 @@
 #include <unistd.h>
 #include "console.h"
 
-//holds response from SEM core
-extern volatile char resp_buffer[1400];
-//signal from interrupt handler that signals when full response has been received
-extern volatile unsigned int resp_end;
 //Uncomment this if the device being used is UltraScale+
 //#define ULTRASCALE_P
 
