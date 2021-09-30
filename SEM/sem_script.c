@@ -2,11 +2,7 @@
 #include <time.h>
 #include <math.h>
 
-/*NOTE: WRITE YOUR SCRIPT IN THE FOLLOWING FUNCTION.
-  FINISH WITH ctrl+c IN THE OPEN TERMINAL.
-  IF YOU NEED TO CHECK ERROR CORRECTION AFTER INJECTION,
-  LAUNCH A NEW wait_resp() FUNCTION TO RECEIVE THE RESPONSE.
-*/
+/*NOTE: WRITE YOUR SCRIPT IN THE FOLLOWING FUNCTION.*/
 
 /*
 Defines the Weibull distribuition scale parameter
@@ -15,7 +11,8 @@ used to inject errors, meaning that a scale of 100 will generate intervals
 with a scale of 100ms
 */
 #define SCALE 100
-//Defines the Weibull distribuition shape parameter
+//Defines the Weibull distribuition shape parameter (SHAPE=1 is the 
+//value that better represents electrical errors)
 #define SHAPE 1
 
 
@@ -37,6 +34,7 @@ void my_sem_script (){
   //Wait initial response
   wait_resp();
   
+  //Reset the SEM core
   reset_cmd();
 
   fp = fopen("injectionRange.txt", "r");
@@ -50,8 +48,9 @@ void my_sem_script (){
     start = clock() / (CLOCKS_PER_SEC / 1000);
     U = ((rand()%10000)+1.0)/10000.0 ;
     val_aux = pow(-1.0*log(U), 1.0/SHAPE); //-ln(U)^(1/SHAPE)
-    wait_time = SCALE*val_aux;
+    wait_time = SCALE*val_aux; //waiting period based on Weibull distribution
     
+    //get the error address from file
     while (1) {
       c = fgetc(fp);
       if (c == EOF || c == '\n') 
@@ -60,10 +59,10 @@ void my_sem_script (){
     }
     if (c == EOF) break;
     
+    //inject error after the waiting time has elapsed
     while (1) {
       end = clock() / (CLOCKS_PER_SEC / 1000);
       if((end-start) >= wait_time) {
-        //printf("%ld >= %d\n", end-start, wait_time);
         err_injection_cmd_in_addr(buffer);
         break;
       }

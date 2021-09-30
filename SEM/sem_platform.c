@@ -64,7 +64,6 @@ void wait_resp_w_word (unsigned int word) {
 Enters IDLE state and waits for response
 */
 void idle_cmd() {
-
 	if (!IDLE) {
 		cnsl_puts("I\r"); //Enter IDLE state
 

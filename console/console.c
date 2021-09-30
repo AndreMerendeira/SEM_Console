@@ -56,16 +56,16 @@ int main(int argc, char* argv[]) {
     else putchar(c);
   }
 
-  cnsl_putchar('\x06');
+  cnsl_putchar('\x03');
   printf("Starting scrip\n");
   
   my_sem_script();
   
-  cnsl_putchar('\x06');
+  cnsl_putchar('\x03');
   while (1) {
     //get byte from target
     c = cnsl_getchar();
-    if(c=='\x06') break;
+    if(c=='\x03') break;
     else putchar(c);
   }
   
