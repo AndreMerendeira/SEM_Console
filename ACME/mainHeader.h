@@ -82,6 +82,19 @@ using namespace std;
 #define PYNQ_FY 2650				// PYNQ Frames per Horizontal Clock Regions
 
 
+#define ZCU104_MIN_X 53  		// ZCU104 Minimum X Coordinate
+#define ZCU104_MAX_X 391			// ZCU104 Maximum X Coordinate
+#define ZCU104_MIN_Y 1				// ZCU104 Minimum Y Coordinate
+#define ZCU104_MAX_Y 372			// ZCU104 Maximum Y Coordinates
+#define ZCU104_Y5 61				// ZCU104 Maximum Row of Clock Region Y5
+#define ZCU104_Y4 123				// ZCU104 Maximum Row of Clock Region Y4
+#define ZCU104_Y3 185				// ZCU104 Maximum Row of Clock Region Y3
+#define ZCU104_Y2 247				// ZCU104 Maximum Row of Clock Region Y2
+#define ZCU104_Y1 309				// ZCU104 Maximum Row of Clock Region Y1
+#define ZCU104_OFFSET_X 53	// ZCU104 Tiles Starting Column
+#define ZCU104_FX 22 				// ZCU104 Frames per X Coordinate (Tile Column)
+#define ZCU104_FY 7379				// ZCU104 Frames per Horizontal Clock Regions
+
 //---------------------------------------------------------------------------------------
 // FUNCTION PROTOTYPES
 //---------------------------------------------------------------------------------------

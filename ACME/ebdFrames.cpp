@@ -430,6 +430,372 @@ vector<int> ebdFrames(vector<int> coordinates, vector<int>& words, int &clk_regi
       else { words.push_back((PYNQ_Y2 - coordinates.at(2)) * 2 + 1); }																	// Last Word
       clk_regions = 3;
     }
+    // Erroneus Data
+    else {
+      cout << "-> ERROR, incorrect range" << endl;
+      exit(EXIT_FAILURE);
+    }
+  }
+  // Obtain Device Type
+	else if (coordinates.at(0) == 4) {
+		//----------
+		// ZCU104
+		//----------
+
+    // Y Lo and Y Hi belong to CLOCK REGION Y5
+		if ((coordinates.at(2) >= 0) && (coordinates.at(4) <= ZCU104_Y5)) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 5) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 5) * WF_ULTRASCALE_P);		// Last Frame
+			words.push_back((ZCU104_Y5 - coordinates.at(4)) * 2);																				// First Word
+			if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y5 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 1;
+		}
+		// Y Lo and Y Hi belong to CLOCK REGION Y4
+		else if ((coordinates.at(2) >= ZCU104_Y5) && (coordinates.at(4) <= ZCU104_Y4)) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			words.push_back((ZCU104_Y4 - coordinates.at(4)) * 2);																				// First Word
+			if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y4 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 1;
+		}
+		// Y Lo and Y Hi belong to CLOCK REGION Y3
+		else if ((coordinates.at(2) > ZCU104_Y4) && (coordinates.at(4) <= ZCU104_Y3)) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			words.push_back((ZCU104_Y3 - coordinates.at(4)) * 2);																				// First Word
+			if (coordinates.at(2) == (ZCU104_Y4 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y3 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 1;
+		}
+		// Y Lo and Y Hi belong to CLOCK REGION Y2
+		else if ((coordinates.at(2) > ZCU104_Y3) && (coordinates.at(4) <= ZCU104_Y2)) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			words.push_back((ZCU104_Y2 - coordinates.at(4)) * 2);																				// First Word
+			if (coordinates.at(2) == (ZCU104_Y3 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y2 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 1;
+		}
+		// Y Lo and Y Hi belong to CLOCK REGION Y1
+		else if ((coordinates.at(2) > ZCU104_Y2) && (coordinates.at(4) <= ZCU104_Y1)) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			words.push_back((ZCU104_Y1 - coordinates.at(4)) * 2);																				// First Word
+			if (coordinates.at(2) == (ZCU104_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y1 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 1;
+		}
+		// Y Lo and Y Hi belong to CLOCK REGION Y0
+		else if ((coordinates.at(2) > ZCU104_Y1) && (coordinates.at(4) <= ZCU104_MAX_Y)) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
+			words.push_back((ZCU104_MAX_Y - coordinates.at(4)) * 2);																			// First Word
+			if (coordinates.at(2) == (ZCU104_Y1 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_MAX_Y - coordinates.at(2)) * 2 + 1); }																// Last Word
+			clk_regions = 1;
+		}
+
+
+    // Y Lo belongs to CLOCK REGION Y5 and Y Hi belongs to CLOCK REGION Y4
+    else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ZCU104_Y5)) && ((coordinates.at(4) > ZCU104_Y5) && (coordinates.at(4) <= ZCU104_Y4))) {
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 5) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 5) * WF_ULTRASCALE_P);		// Last Frame
+      if (coordinates.at(4) == (ZCU104_Y5 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+      else { words.push_back((ZCU104_Y4 - coordinates.at(4)) * 2); }																		// First Word
+      words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+      words.push_back(0);																													// First Word
+      if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+      else { words.push_back((ZCU104_Y5 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+      clk_regions = 2;
+    }
+		// Y Lo belongs to CLOCK REGION Y4 and Y Hi belongs to CLOCK REGION Y3
+		else if (((coordinates.at(2) >= ZCU104_Y5) && (coordinates.at(2) <= ZCU104_Y4)) && ((coordinates.at(4) > ZCU104_Y4) && (coordinates.at(4) <= ZCU104_Y3))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y4 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y3 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == ZCU104_Y5) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y4 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 2;
+		}
+		// Y Lo belongs to CLOCK REGION Y3 and Y Hi belongs to CLOCK REGION Y2
+		else if (((coordinates.at(2) > ZCU104_Y4) && (coordinates.at(2) <= ZCU104_Y3)) && ((coordinates.at(4) > ZCU104_Y3) && (coordinates.at(4) <= ZCU104_Y2))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y3 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y2 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == (ZCU104_Y4 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y3 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 2;
+		}
+		// Y Lo belongs to CLOCK REGION Y2 and Y Hi belongs to CLOCK REGION Y1
+		else if (((coordinates.at(2) > ZCU104_Y3) && (coordinates.at(2) <= ZCU104_Y2)) && ((coordinates.at(4) > ZCU104_Y2) && (coordinates.at(4) <= ZCU104_Y1))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y1 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == (ZCU104_Y3 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y2 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 2;
+		}
+		// Y Lo belongs to CLOCK REGION Y1 and Y Hi belongs to CLOCK REGION Y0
+		else if (((coordinates.at(2) > ZCU104_Y2) && (coordinates.at(2) <= ZCU104_Y1)) && ((coordinates.at(4) > ZCU104_Y1) && (coordinates.at(4) <= ZCU104_MAX_Y))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y1 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_MAX_Y - coordinates.at(4)) * 2); }																	// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == (ZCU104_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y1 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 2;
+		}
+
+
+    // Y Lo belongs to CLOCK REGION Y5 and Y Hi belongs to CLOCK REGION Y3
+		else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ZCU104_Y5)) && ((coordinates.at(4) > ZCU104_Y4) && (coordinates.at(4) <= ZCU104_Y3))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 5) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 5) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y4 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y3 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y5 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 3;
+		}
+		// Y Lo belongs to CLOCK REGION Y4 and Y Hi belongs to CLOCK REGION Y2
+		else if (((coordinates.at(2) >= ZCU104_Y5) && (coordinates.at(2) <= ZCU104_Y4)) && ((coordinates.at(4) > ZCU104_Y3) && (coordinates.at(4) <= ZCU104_Y2))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y3 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y2 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == ZCU104_Y5) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y4 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 3;
+		}
+		// Y Lo belongs to CLOCK REGION Y3 and Y Hi belongs to CLOCK REGION Y1
+		else if (((coordinates.at(2) > ZCU104_Y4) && (coordinates.at(2) <= ZCU104_Y3)) && ((coordinates.at(4) > ZCU104_Y2) && (coordinates.at(4) <= ZCU104_Y1))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y1 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == (ZCU104_Y4 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y3 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 3;
+		}
+		// Y Lo belongs to CLOCK REGION Y2 and Y Hi belongs to CLOCK REGION Y0
+		else if (((coordinates.at(2) > ZCU104_Y3) && (coordinates.at(2) <= ZCU104_Y2)) && ((coordinates.at(4) > ZCU104_Y1) && (coordinates.at(4) <= ZCU104_MAX_Y))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y1 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_MAX_Y - coordinates.at(4)) * 2); }																	// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == (ZCU104_Y3 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y2 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 3;
+		}
+
+
+    // Y Lo belongs to CLOCK REGION Y5 and Y Hi belongs to CLOCK REGION Y2
+		else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ZCU104_Y5)) && ((coordinates.at(4) > ZCU104_Y3) && (coordinates.at(4) <= ZCU104_Y2))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 5) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 5) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y3 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y2 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y5 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 4;
+		}
+		// Y Lo belongs to CLOCK REGION Y4 and Y Hi belongs to CLOCK REGION Y1
+		else if (((coordinates.at(2) >= ZCU104_Y5) && (coordinates.at(2) <= ZCU104_Y4)) && ((coordinates.at(4) > ZCU104_Y2) && (coordinates.at(4) <= ZCU104_Y1))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y1 - coordinates.at(4)) * 2); }																		// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == ZCU104_Y5 + 1) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y4 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 4;
+		}
+		// Y Lo belongs to CLOCK REGION Y3 and Y Hi belongs to CLOCK REGION Y0
+		else if (((coordinates.at(2) > ZCU104_Y4) && (coordinates.at(2) <= ZCU104_Y3)) && ((coordinates.at(4) > ZCU104_Y1) && (coordinates.at(4) <= ZCU104_MAX_Y))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y1 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_MAX_Y - coordinates.at(4)) * 2); }																	// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == (ZCU104_Y4 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y3 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 4;
+		}
+
+
+    // Y Lo belongs to CLOCK REGION Y5 and Y Hi belongs to CLOCK REGION Y1
+		else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ZCU104_Y5)) && ((coordinates.at(4) > ZCU104_Y2) && (coordinates.at(4) <= ZCU104_Y1))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 5) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 5) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y2 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y1 - coordinates.at(4)) * 2); }																	// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y5 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 5;
+		}
+		// Y Lo belongs to CLOCK REGION Y4 and Y Hi belongs to CLOCK REGION Y0
+		else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ZCU104_Y4)) && ((coordinates.at(4) > ZCU104_Y1) && (coordinates.at(4) <= ZCU104_MAX_Y))) {
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+			frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+			if (coordinates.at(4) == (ZCU104_Y1 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_MAX_Y - coordinates.at(4)) * 2); }																	// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+			words.push_back(0);																													// First Word
+			if (coordinates.at(2) == ZCU104_Y5) { words.push_back(WF_ULTRASCALE_P - 1); }
+			else { words.push_back((ZCU104_Y4 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+			clk_regions = 5;
+		}
+
+    // TODO: Stopped here
+    // Y Lo belongs to CLOCK REGION Y5 and Y Hi belongs to CLOCK REGION Y0
+    else if (((coordinates.at(2) >= 0) && (coordinates.at(2) <= ZCU104_Y5)) && ((coordinates.at(4) > ZCU104_Y1) && (coordinates.at(4) <= ZCU104_MAX_Y))) {
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 0) * WF_ULTRASCALE_P);							// First Frame
+			frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 0) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 1) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 1) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 2) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 2) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 3) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 3) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 4) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 4) * WF_ULTRASCALE_P);		// Last Frame
+      frameRanges.push_back(((coordinates.at(1) - ZCU104_OFFSET_X) * ZCU104_FX + ZCU104_FY * 5) * WF_ULTRASCALE_P);							// First Frame
+      frameRanges.push_back(((coordinates.at(3) - ZCU104_OFFSET_X) * ZCU104_FX + (ZCU104_FX - 1) + ZCU104_FY * 5) * WF_ULTRASCALE_P);		// Last Frame
+      if (coordinates.at(4) == (ZCU104_Y1 + 1)) { words.push_back(WF_ULTRASCALE_P - 1); }
+      else { words.push_back((ZCU104_MAX_Y - coordinates.at(4)) * 2); }																	// First Word
+      words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+      words.push_back(0);																													// First Word
+      words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+      words.push_back(0);																													// First Word
+      words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+      words.push_back(0);																													// First Word
+      words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+      words.push_back(0);																													// First Word
+      words.push_back(WF_ULTRASCALE_P - 1);																									// Last Word
+      words.push_back(0);
+      if (coordinates.at(2) == 0) { words.push_back(WF_ULTRASCALE_P - 1); }
+      else { words.push_back((ZCU104_Y5 - coordinates.at(2)) * 2 + 1); }																	// Last Word
+      clk_regions = 6;
+    }
 		// Erroneus Data
 		else {
 			cout << "-> ERROR, incorrect range" << endl;

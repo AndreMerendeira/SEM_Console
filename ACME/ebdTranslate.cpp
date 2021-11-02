@@ -54,7 +54,7 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
         wf = WF_ULTRASCALE;
 			}
 		}
-    if (coordinates.at(0) == 2) {
+    if (coordinates.at(0) == 2 || coordinates.at(0) == 4) {
 			// UltraScale+
 			for (int j = 0; j < DUMMY_ULTRASCALE_P; j++) {
 				getline(EBDfile, fileLine);
@@ -92,7 +92,7 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 							// For each 1 (Essential Bit) in the EBD Line
 							if (EBDline[n]) {
 		            // Linear Address
-							  if (coordinates.at(0) == 2) { 
+							  if (coordinates.at(0) == 2 || coordinates.at(0) == 4) {
 							    // UltraScale+
 			            LA = bin2hex(bitset<BITS_IN_LINE>(stoi("00" + dec2bin(k / wf), nullptr, 2)), 5);
 			          } else {
@@ -108,7 +108,7 @@ int ebdTranslate(string name, vector<int> coordinates, vector<int> frames, vecto
 							  WD_BT = bin2hex(bitset<BITS_IN_LINE>(stoi(WD_BT_str.str(), nullptr, 2)), 3);
 
 							  // Write Injection Address to File
-                if (coordinates.at(0) == 2) {
+                if (coordinates.at(0) == 2 || coordinates.at(0) == 4) {
                   // UltraScale+
 								  addrfile << "C00" << LA << WD_BT << endl;
 			          } else {

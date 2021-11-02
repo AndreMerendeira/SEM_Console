@@ -44,6 +44,7 @@ vector<int> welcome()
 	cout << "/**" << "      (1) KCU105 :       X [50,357] - Y [0,309] " << "**/" << endl;
 	cout << "/**" << "      (2) Ultra96-V2 :   X [161,301] - Y [1,185] " << "**/" << endl;
 	cout << "/**" << "      (3) PYNQ-Z2 :      X [10,176] - Y [1,155] " << "**/" << endl;
+  cout << "/**" << "      (4) ZCU104 :       X [53,391] - Y [1,372] " << "**/" << endl;
 	cout << "/**" << "                                                " << "**/" << endl;
 	cout << "/**" << "   - Design coordinates:                        " << "**/" << endl;
 	cout << "/**" << "       (X Lo,Y Lo)                              " << "**/" << endl;
@@ -65,7 +66,7 @@ vector<int> welcome()
 	// Read Board Type
 	cout << "-> Please select device: ";
 	cin >> input_val;
-	while ((cin.fail()) || ((input_val != 1) && (input_val != 2) && (input_val != 3))) { // && (input_val != 4) && (input_val != 5)))) {
+	while ((cin.fail()) || ((input_val != 1) && (input_val != 2) && (input_val != 3) && (input_val != 4))) { // && (input_val != 5)))) {
 		cout << "-> ERROR, please enter a valid number: ";
 		cin.clear();
 		cin.ignore(256, '\n');
@@ -92,11 +93,14 @@ vector<int> welcome()
 		MIN_Y = PYNQ_MIN_Y;
 		MAX_Y = PYNQ_MAX_Y;
 	}
-/*
+
 	else if (coordinates.at(0) == 4) {
-		MAX_X = ZC706_MAX_X;
-		MAX_Y = ZC706_MAX_Y;
+    MIN_X = ZCU104_MIN_X;
+		MAX_X = ZCU104_MAX_X;
+		MIN_Y = ZCU104_MIN_Y;
+		MAX_Y = ZCU104_MAX_Y;
 	}
+  /*
 	else if (coordinates.at(0) == 5) {
 		MAX_X = ZEDBOARD_MAX_X;
 		MAX_Y = ZEDBOARD_MAX_Y;
@@ -185,10 +189,10 @@ vector<int> welcome()
 	else if (coordinates.at(0) == 3) {
 		cout << "PYNQ-Z2" << endl;
 	}
-	/*else if (coordinates.at(0) == 4) {
-		cout << "ZC706" << endl;
+	else if (coordinates.at(0) == 4) {
+		cout << "ZCU104" << endl;
 	}
-	else if (coordinates.at(0) == 5) {
+	/*else if (coordinates.at(0) == 5) {
 		cout << "ZedBoard" << endl;
 	}*/
 	cout << " Region  : (" << coordinates.at(1) << "," << coordinates.at(2) << "):(" << coordinates.at(3) << "," << coordinates.at(4) << ")" << endl;
