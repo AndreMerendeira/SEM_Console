@@ -1,12 +1,12 @@
 SHELL := /bin/bash
 
-SERIAL:=/dev/ttyUSB2
+SERIAL:=/dev/ttyUSB1
 
 CC:=gcc
 CFLAGS:=-g -Wall
 
 #Uncomment this line when using an UltraScale+ board
-CFLAGS += -DULTRASCALE_P
+#CFLAGS += -DULTRASCALE_P
 
 INCLUDE+=-I. -I../SEM
 

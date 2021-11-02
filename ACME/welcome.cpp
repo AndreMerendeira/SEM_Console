@@ -43,6 +43,7 @@ vector<int> welcome()
 	cout << "/**" << "   - Supported devices:                         " << "**/" << endl;
 	cout << "/**" << "      (1) KCU105 :       X [50,357] - Y [0,309] " << "**/" << endl;
 	cout << "/**" << "      (2) Ultra96-V2 :   X [161,301] - Y [1,185] " << "**/" << endl;
+	cout << "/**" << "      (3) PYNQ-Z2 :      X [10,176] - Y [1,155] " << "**/" << endl;
 	cout << "/**" << "                                                " << "**/" << endl;
 	cout << "/**" << "   - Design coordinates:                        " << "**/" << endl;
 	cout << "/**" << "       (X Lo,Y Lo)                              " << "**/" << endl;
@@ -64,7 +65,7 @@ vector<int> welcome()
 	// Read Board Type
 	cout << "-> Please select device: ";
 	cin >> input_val;
-	while ((cin.fail()) || ((input_val != 1) && (input_val != 2))) { // && (input_val != 3) && (input_val != 4) && (input_val != 5)))) {
+	while ((cin.fail()) || ((input_val != 1) && (input_val != 2) && (input_val != 3))) { // && (input_val != 4) && (input_val != 5)))) {
 		cout << "-> ERROR, please enter a valid number: ";
 		cin.clear();
 		cin.ignore(256, '\n');
@@ -85,14 +86,13 @@ vector<int> welcome()
 		MIN_Y = ULTRA96_2_MIN_Y;
 		MAX_Y = ULTRA96_2_MAX_Y;
 	}
-	/*else if (coordinates.at(0) == 2) {
-		MAX_X = B3_MAX_X;
-		MAX_Y = B3_MAX_Y;
-	}
 	else if (coordinates.at(0) == 3) {
-		MAX_X = N4_MAX_X;
-		MAX_Y = N4_MAX_Y;
+    MIN_X = PYNQ_MIN_X;
+		MAX_X = PYNQ_MAX_X;
+		MIN_Y = PYNQ_MIN_Y;
+		MAX_Y = PYNQ_MAX_Y;
 	}
+/*
 	else if (coordinates.at(0) == 4) {
 		MAX_X = ZC706_MAX_X;
 		MAX_Y = ZC706_MAX_Y;
@@ -179,16 +179,13 @@ vector<int> welcome()
 	if (coordinates.at(0) == 1) {
 		cout << "KCU105" << endl;
 	}
-  if (coordinates.at(0) == 2) {
+  else if (coordinates.at(0) == 2) {
 		cout << "Ultra96-V2" << endl;
 	}
-	/*else if (coordinates.at(0) == 2) {
-		cout << "Basys3" << endl;
-	}
 	else if (coordinates.at(0) == 3) {
-		cout << "Nexys4 DDR" << endl;
+		cout << "PYNQ-Z2" << endl;
 	}
-	else if (coordinates.at(0) == 4) {
+	/*else if (coordinates.at(0) == 4) {
 		cout << "ZC706" << endl;
 	}
 	else if (coordinates.at(0) == 5) {

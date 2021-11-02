@@ -71,6 +71,17 @@ using namespace std;
 #define ULTRA96_2_FY 3458				// Ultra96_2 Frames per Horizontal Clock Regions
 
 
+#define PYNQ_MIN_X 10			// PYNQ Minimum X Coordinate
+#define PYNQ_MAX_X 176			// PYNQ Maximum X Coordinate
+#define PYNQ_MIN_Y 1				// PYNQ Minimum Y Coordinate
+#define PYNQ_MAX_Y 155			// PYNQ Maximum Y Coordinate
+#define PYNQ_Y2 51				// PYNQ Maximum Row of Clock Region Y2
+#define PYNQ_Y1 103				// PYNQ Maximum Row of Clock Region Y1
+#define PYNQ_OFFSET_X 10			// PYNQ Tiles Starting Column
+#define PYNQ_FX 16				// PYNQ Frames per X Coordinate (Tile Column)
+#define PYNQ_FY 2650				// PYNQ Frames per Horizontal Clock Regions
+
+
 //---------------------------------------------------------------------------------------
 // FUNCTION PROTOTYPES
 //---------------------------------------------------------------------------------------
